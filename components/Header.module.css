@@ -1,0 +1,93 @@
+
+
+.modelContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    height: 300px;
+    width: 100vw;
+    padding: 10px;
+
+}
+
+
+.img1{
+
+    height: 100;
+    width: 200;
+}
+
+.img2{
+
+    height: 200;
+    width: 200;
+}
+
+
+
+@media (max-width: 320px) {      /* XS phones (≤320px) */
+    .modelContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    height: 300px;
+    width: 100vw;
+    padding: 10px;
+    margin-top: 20px;
+
+}
+
+}
+    @media (min-width: 321px) and (max-width: 375px) {  /* S phones (321–375px) */
+      .modelContainer{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+        height: 300px;
+        width: 100vw;
+        padding: 10px;
+        margin-top: 20px;
+        
+
+        }
+    }
+    @media (min-width: 376px) and (max-width: 414px) {  /* M phones (376–414px) */
+      .modelContainer{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+        height: 300px;
+        width: 100vw;
+        padding: 10px;
+        margin-top: 20px;
+        
+
+        }
+    }
+    @media (min-width: 415px) and (max-width: 480px) {  /* L phones (415–480px) */
+      .modelContainer{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+        height: 300px;
+        width: 100vw;
+        padding: 10px;
+        margin-top: 20px;
+        
+
+        }
+    }
+    @media (min-width: 481px) and (max-width: 767px) {  /* XL phones / small tablets */
+      body { font-size: 18px; padding: 1.5rem; }
+      .grid  { grid-template-columns: 1fr; }
+    }
