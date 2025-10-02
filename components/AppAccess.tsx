@@ -1,7 +1,7 @@
 
 "use client"
 import Image from "next/image";
-import {textToSpeech} from "@/app/elevenApi"
+
 import { useState, useEffect } from "react";
 import EntryForm from "@/components/EntryForm";
 import Header from "@/components/Header"
@@ -13,6 +13,7 @@ import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
 import {Protect} from "@clerk/nextjs"
+import CreditsBanner from "./CreditsBanner";
 
 type Handle = {
   voiceID: string

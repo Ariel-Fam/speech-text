@@ -88,6 +88,6 @@
         }
     }
     @media (min-width: 481px) and (max-width: 767px) {  /* XL phones / small tablets */
-      body { font-size: 18px; padding: 1.5rem; }
+
       .grid  { grid-template-columns: 1fr; }
     }

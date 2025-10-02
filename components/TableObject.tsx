@@ -12,7 +12,7 @@ import { DownloadButton } from "./Download";
 
 type response = {
     audioName: string
-    audioUrl: any
+    audioUrl: string
 }
 
 function TableObject({audioName, audioUrl}: response) {

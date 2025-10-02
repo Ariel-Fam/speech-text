@@ -2,6 +2,14 @@ import { useUser } from "@clerk/nextjs";
 
 
 
-export const user = useUser()
+export default function Wrapper(){
+
+    const user = useUser()
+
+}
+
+
+
+
 
 
