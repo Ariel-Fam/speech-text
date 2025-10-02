@@ -7,11 +7,12 @@ import EntryForm from "@/components/EntryForm";
 import Header from "@/components/Header"
 import TableObject from "@/components/TableObject";
 import Spinner from "@/components/Spinner";
-import { Protect } from "@clerk/nextjs";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { user } from "@/components/server"
-
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
+import {Protect} from "@clerk/nextjs"
 
 type Handle = {
   voiceID: string
@@ -27,15 +28,6 @@ export default function AppFunction() {
   const [loading, setLoading] = useState(false)
 
   const [audioUrl, setAudioUrl] = useState<string>("");
-
-  
-
-
-
-
-  // const apiKey = process.env.NEXT_PUBLIC_ELEVENLABS_API_KEY
-
-
 
   useEffect(() => {
 
@@ -60,25 +52,16 @@ export default function AppFunction() {
 
       try{
 
-        // const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voice}?output_format=mp3_44100_128`, {
-        //   method: "POST",
-        //   headers: {
-        //     "xi-api-key": `${apiKey}`,
-        //     "Content-Type": "application/json"
-        //   },
-        //   body: JSON.stringify({
-        //     "text": `${speechText}`,
-        //     "model_id": "eleven_multilingual_v2"
-        //   }),
           const response = await fetch("/api/speak", {
             method: "POST",
             body: JSON.stringify({ voiceID: voice, text: speechText }),
             headers: { "Content-Type": "application/json" },
           })
 
-        
-
-        if (!response) {
+        if (!response || !response.ok) {
+          if (response && response.status === 402) {
+            throw new Error("Insufficient credits. Please subscribe to continue.")
+          }
           throw new Error("Unable to connect to api")
         }
 
@@ -89,7 +72,7 @@ export default function AppFunction() {
 
         setAudioUrl(audioUrl)
 
-       
+        
 
         console.log(audioUrl)
 
@@ -107,14 +90,84 @@ export default function AppFunction() {
     }
   }
 
+  const remaining = useQuery(api.credits.getRemaining, {})
 
+  if (remaining === 0) {
+    return (
+
+      <Protect
+      fallback={
+        <div className="flex flex-col items-center justify-center bg-gradient-to-br from-red-500 via-green-500 to-blue-500 ">
+                <Header />
+
+                <div className="flex flex-col items-center justify-center bg-white p-4 rounded-2xl mt-8 shadow-2xl hover:scale-110">
+
+                <h1 className="text-xl font-semibold mb-2">Upgrade required</h1>
+                <p className="mb-4">Subscribe to unlock text-to-speech.</p>
+                <Link href="/subscribe" prefetch={false} className="underline">
+                    <Button  className="cursor-pointer hover:scale-110">Go to Subscribe</Button>
+                </Link>
+                </div>
+
+                
+                <div className="mt-20">
+                    <Image
+                    src={"/example.png"}
+                    height={400}
+                    width={600}
+                    alt="img"
+                    className="rounded-3xl shadow-2xl mb-40 hover:scale-120"
+                    />
+                </div>
+            </div>
+
+
+      }
+      
+      >
+        <div className="flex flex-col items-center justify-center bg-gradient-to-br from-red-500 via-green-500 to-blue-500 ">
+        <Header />
+        <div className="w-full max-w-xl px-4">
+
+         
+
+          <CreditsBanner  />
+           
+          <div className="mt-6">
+            <Alert variant="default">
+              <AlertTitle>Upgrade required</AlertTitle>
+              <AlertDescription>
+                You have 0 credits left. Subscribe to continue using text-to-speech.
+              </AlertDescription>
+            </Alert>
+          </div>
+          <div className="flex justify-start mt-4">
+            <Link href="/subscribe" prefetch={false} className="underline">
+              <Button className="cursor-pointer">Go to Subscribe</Button>
+            </Link>
+          </div>
+        </div>
+        <div className="mt-20">
+          <Image
+            src={"/example.png"}
+            height={400}
+            width={600}
+            alt="img"
+            className="rounded-3xl shadow-2xl mb-40 hover:scale-120"
+          />
+        </div>
+      </div>
+        
+      </Protect>
+      
+    )
+  }
 
   return(
-    
-    <div>
 
-        <Protect
-        plan={"monthly_plan"}
+    <Protect
+
+    plan={"monthly_plan"}
         fallback={
             <div className="flex flex-col items-center justify-center bg-gradient-to-br from-red-500 via-green-500 to-blue-500 ">
                     <Header />
@@ -142,33 +195,23 @@ export default function AppFunction() {
 
 
         }
-        >
-
-            <div >
-        
-        
-                <Header />
-                
-                <EntryForm onsubmit={handleSubmit} voice={voice} onVoiceChange={setVoice} speechText={speechText} onTextChange={setSpeechText} />
     
-                <div className="flex flex-row p-10 items-center justify-center bg-blue-400">{loading ? <Spinner /> : "" }</div>
     
-                <TableObject audioName="Text to Speech" audioUrl={audioUrl} />
-            
-        
-            
-        
-            </div>
-            
+    >
 
+      <div>
+        <div>
+          <Header />
+          <div className="w-full max-w-xl px-4">
+           
+          </div>
+          <EntryForm onsubmit={handleSubmit} voice={voice} onVoiceChange={setVoice} speechText={speechText} onTextChange={setSpeechText} />
+          <div className="flex flex-row p-10 items-center justify-center bg-blue-400">{loading ? <Spinner /> : "" }</div>
+          <TableObject audioName="Text to Speech" audioUrl={audioUrl} />
+        </div>
+      </div>
 
-        </Protect>
-
-    </div>
-
-
+    </Protect>
   )
-    
-
 }
 

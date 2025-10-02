@@ -10,20 +10,18 @@ import { ArrowLeft } from 'lucide-react';
 
 export default function Home() {
 
-
-
   return (
+    
     <>
       <Authenticated>
 
-        <div className="mr-14 flex flex-row scale-200 mt-20 bg-amber-400 p-3 rounded-lg">
+        <div className="mx-4 sm:mx-6 md:mx-14 flex items-center gap-3 sm:gap-4 mt-8 sm:mt-12 md:mt-20 bg-amber-400 p-2 sm:p-3 rounded-lg">
 
           <UserButton   />
 
-          <h4 className="ml-5"> <ArrowLeft /> Account Info</h4>
+          <h4 className="text-sm sm:text-base md:text-lg flex items-center gap-2"> <ArrowLeft /> Account Info</h4>
         </div>
 
-        
 
         <Content />
 

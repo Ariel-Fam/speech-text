@@ -47,7 +47,7 @@ function EntryForm({onsubmit, voice, speechText, onTextChange, onVoiceChange}: E
         <form onSubmit={handleSubmit}>
 
 
-            <div className="w-screen h-100 bg-gray-700 flex flex-col items-center justify-center">
+            <div className="w-full bg-gray-700 flex flex-col items-center justify-center py-6 sm:py-8 px-3 sm:px-4">
 
 
              <Select 
@@ -56,7 +56,7 @@ function EntryForm({onsubmit, voice, speechText, onTextChange, onVoiceChange}: E
                 
                 >
 
-                    <SelectTrigger className="w-70">{voice ? voice: "Select a voice" }</SelectTrigger>
+                    <SelectTrigger className="w-full max-w-sm sm:max-w-md text-sm sm:text-base">{voice ? voice: "Select a voice" }</SelectTrigger>
 
                     <SelectContent>
                     <SelectItem value="ntdpYtDTd78wjhHJ6unR">Mixed Accent - Male Voice</SelectItem>
@@ -73,30 +73,32 @@ function EntryForm({onsubmit, voice, speechText, onTextChange, onVoiceChange}: E
 
                 </Select>
 
-                <h1 className="text-4xl mt-10 text-white">Select a Voice</h1>
+                <h1 className="text-xl sm:text-3xl md:text-4xl mt-4 sm:mt-6 text-white text-center">Select a Voice</h1>
             </div>
 
 
 
-            <div className="w-screen h-100 bg-blue-500/85 flex flex-col items-center justify-center">
+            <div className="w-full bg-blue-500/85 flex flex-col items-center justify-center py-6 sm:py-8 px-3 sm:px-4">
 
-                <div className="flex flex-col items-center justify-center bg-white p-2 mt-4 rounded-2xl mb-4">
-                    <p >{ Max - used } characters remaining </p>
-                    <Keyboard />
+                <div className="flex flex-col items-center justify-center bg-white px-3 py-2 mt-2 rounded-xl mb-3 sm:mb-4 shadow">
+                    <p className="text-sm sm:text-base">{ Max - used } characters remaining </p>
+                    <Keyboard className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
 
                 <Textarea 
                 value={speechText}
                 onChange={(e)=>{onTextChange(e.target.value)}}
                 placeholder="Write text to convert into Speech"
-                className="w-70 h-40  shadow-xl hover:scale-105 hover:shadow-2xl sm:w-80 xs:w-70"
+                className="w-full max-w-sm sm:max-w-2xl h-36 sm:h-48 md:h-56 text-sm sm:text-base shadow-xl hover:shadow-2xl transition"
                 maxLength={Max}
                 >
 
 
                 </Textarea>
 
-                <Button className="mt-4 ml-40 hover:scale-110 hover:bg-fuchsia-950 " type="submit"> {<Megaphone />} Generate Speech</Button>
+                <div className="w-full max-w-2xl flex justify-center sm:justify-end">
+                    <Button size="sm" className="mt-4 sm:h-9 sm:px-4 text-sm sm:text-base hover:scale-105 hover:bg-fuchsia-950 transition" type="submit"> {<Megaphone className="w-4 h-4 sm:w-5 sm:h-5" />} Generate Speech</Button>
+                </div>
 
 
                 

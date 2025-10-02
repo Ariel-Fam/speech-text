@@ -2,35 +2,48 @@ import Image from "next/image";
 
 import Styles from "@/components/Header.module.css"
 
+import CreditsBanner from "./CreditsBanner";
+
 function Header() {
     return ( 
 
-        <div className={Styles.modelContainer}>
 
-            <Image
+        <div className="flex flex-col items-center justify-center">
 
-            src={"/launchLogo.png"}
 
-            height={100}
-            width={200}
-            quality={99}
-            alt="img"
-            className={Styles.img1}
-            />
+            <div className={Styles.modelContainer}>
 
-            <Image
+                <Image
 
-            src={"/textSpeech.png"}
+                src={"/launchLogo.png"}
 
-            height={200}
-            width={200}
-            quality={99}
-            alt="img"
-            className={Styles.img2}
-            />
+                height={100}
+                width={200}
+                quality={99}
+                alt="img"
+                className={Styles.img1}
+                />
+
+                <Image
+
+                src={"/textSpeech.png"}
+
+                height={200}
+                width={200}
+                quality={99}
+                alt="img"
+                className={Styles.img2}
+                />
 
             
+
+                
+            </div>
+
+            <CreditsBanner />
         </div>
+
+
      );
 }
 

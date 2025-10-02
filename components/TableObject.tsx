@@ -17,9 +17,10 @@ type response = {
 
 function TableObject({audioName, audioUrl}: response) {
     return ( 
-        <div className="flex flex-col items-center  bg-amber-500 h-70 ml-0.1 ">
+        <div className="flex flex-col items-center bg-amber-500/80 w-full py-4">
 
-            <Table className="">
+            <div className="w-full max-w-4xl overflow-x-auto">
+            <Table className="min-w-[600px]">
                 <TableCaption>Text to speech audio</TableCaption>
                 <TableHeader className="bg-amber-600 ">
                     <TableRow>
@@ -37,6 +38,7 @@ function TableObject({audioName, audioUrl}: response) {
                     </TableRow>
                 </TableBody>
                 </Table>
+            </div>
 
         </div>
      );
